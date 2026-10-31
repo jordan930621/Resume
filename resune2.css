@@ -1,0 +1,543 @@
+/* ==========================================================================
+   全域基礎設定與全螢幕滾動吸附 (Scroll Snap)
+   ========================================================================== */
+:root {
+    --bg-beige: #f5f2eb;
+    --bg-white: #ffffff;
+    --bg-dark: #181716;
+    --text-primary: #1a1a1a;
+    --text-secondary: #4a4a4a;
+    --text-light: #ffffff;
+    --line-color: #d8d4cc;
+    --line-dark: #383533;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    overflow-x: hidden;
+}
+
+/* 核心：啟用全螢幕垂直滾動吸附與平滑動畫 */
+html {
+    scroll-behavior: smooth;
+    scroll-snap-type: y mandatory;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft JhengHei", sans-serif;
+    line-height: 1.8;
+    color: var(--text-primary);
+    background-color: var(--bg-white);
+    font-size: 1.15rem;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+/* 典雅襯線標題字體 */
+h1, h2, h3, .serif-font {
+    font-family: "Playfair Display", Georgia, "Songti TC", serif;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+/* ==========================================================================
+   全螢幕區塊通用規範 (每頁嚴格 100vh 且自動吸附)
+   ========================================================================== */
+.snap-section {
+    height: 100vh;
+    min-height: 100vh;
+    scroll-snap-align: start;       /* 滾動時自動吸附頂端 */
+    scroll-snap-stop: always;       /* 強制停留每一頁，不跳過 */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;       /* 垂直居中 */
+    align-items: center;
+    position: relative;
+    padding: 40px 24px;
+    box-sizing: border-box;
+    overflow-y: auto;              /* 小螢幕可內部滾動防止內容被裁切 */
+}
+
+.snap-section.beige {
+    background-color: var(--bg-beige);
+}
+
+.snap-section.white {
+    background-color: var(--bg-white);
+}
+
+.layout-container {
+    width: 100%;
+    max-width: 1180px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.section-title {
+    font-size: 2.6rem;
+    line-height: 1.25;
+}
+
+.section-subtitle {
+    display: block;
+    font-size: 1.25rem;
+    color: #777;
+    margin-top: 8px;
+    font-style: italic;
+}
+
+/* ==========================================================================
+   1. 首頁 (Hero / Header)
+   ========================================================================== */
+.hero-header {
+    justify-content: space-between;
+    padding-top: 45px;
+    padding-bottom: 45px;
+}
+
+.hero-nav {
+    width: 100%;
+    max-width: 1180px;
+    margin: 0 auto;
+}
+
+.breadcrumb ul {
+    list-style: none;
+    display: flex;
+    font-size: 1rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+}
+
+.breadcrumb li + li:before {
+    content: "/";
+    padding: 0 12px;
+    color: #a8a49c;
+}
+
+.hero-container {
+    width: 100%;
+    max-width: 1180px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 60px;
+}
+
+.hero-image-box {
+    flex: 1;
+    max-width: 360px;
+}
+
+.hero-image-box img {
+    width: 100%;
+    height: 440px;
+    object-fit: cover;
+    border: 1px solid #1a1a1a;
+    display: block;
+}
+
+.hero-text {
+    flex: 1.3;
+}
+
+.hero-text h1 {
+    font-size: 4rem;
+    line-height: 1.1;
+    margin-bottom: 16px;
+}
+
+.hero-subtitle {
+    font-size: 1.35rem;
+    color: var(--text-secondary);
+    margin-bottom: 34px;
+    letter-spacing: 1px;
+}
+
+.btn-black {
+    display: inline-block;
+    background-color: #1a1a1a;
+    color: #ffffff;
+    padding: 14px 34px;
+    font-size: 1.05rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-black:hover {
+    background-color: #333333;
+}
+
+/* ==========================================================================
+   2. 關於我 (About Me)
+   ========================================================================== */
+.about-grid {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+}
+
+.about-text {
+    flex: 1.2;
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+}
+
+.about-text p {
+    margin-bottom: 18px;
+}
+
+.about-text p:last-child {
+    margin-bottom: 0;
+}
+
+.about-img {
+    flex: 0.8;
+}
+
+.about-img img {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+    display: block;
+}
+
+/* ==========================================================================
+   3. 教育背景 (Education)
+   ========================================================================== */
+.edu-box h3 {
+    font-size: 1.8rem;
+    margin-bottom: 8px;
+}
+
+.edu-major {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 14px;
+}
+
+.edu-desc {
+    color: var(--text-secondary);
+    font-size: 1.15rem;
+}
+
+/* ==========================================================================
+   4. 專案經歷 (Projects)
+   ========================================================================== */
+.timeline-content {
+    width: 100%;
+}
+
+.timeline-item {
+    padding-bottom: 24px;
+    margin-bottom: 24px;
+    border-bottom: 1px solid var(--line-color);
+}
+
+.timeline-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.timeline-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 8px;
+}
+
+.timeline-header h3 {
+    font-size: 1.55rem;
+}
+
+.timeline-period {
+    font-size: 1.05rem;
+    color: var(--text-secondary);
+    font-family: Georgia, serif;
+}
+
+.timeline-sub {
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #4a4a4a;
+}
+
+.clean-list {
+    list-style: none;
+}
+
+.clean-list li {
+    position: relative;
+    padding-left: 20px;
+    margin-bottom: 8px;
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+}
+
+.clean-list li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: #1a1a1a;
+}
+
+/* ==========================================================================
+   5. 專業技能 (Skills)
+   ========================================================================== */
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+}
+
+.skill-group h3 {
+    font-size: 1.45rem;
+    margin-bottom: 16px;
+    border-bottom: 1px solid var(--line-color);
+    padding-bottom: 8px;
+    color: var(--text-primary);
+}
+
+.skill-list {
+    list-style: none;
+}
+
+.skill-list li {
+    margin-bottom: 14px;
+    font-size: 1.08rem;
+    color: var(--text-secondary);
+}
+
+.skill-list strong {
+    color: var(--text-primary);
+    display: block;
+    font-size: 1.2rem;
+    margin-bottom: 4px;
+}
+
+/* ==========================================================================
+   6. 自傳 (Autobiography)
+   ========================================================================== */
+.bio-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.bio-card {
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--line-color);
+}
+
+.bio-card:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.bio-card h3 {
+    font-size: 1.3rem;
+    margin-bottom: 6px;
+    color: var(--text-primary);
+}
+
+.bio-card p {
+    font-size: 1.08rem;
+    color: var(--text-secondary);
+    line-height: 1.8;
+    text-align: justify;
+}
+
+/* ==========================================================================
+   7. 顯眼底部聯絡方式 (High Visibility Contact Bar)
+   ========================================================================== */
+.footer-bar {
+    background-color: var(--bg-dark);
+    color: #f5f2eb;
+    padding: 36px 30px;
+    scroll-snap-align: end;
+    border-top: 2px solid #5a544c;
+    box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.footer-bar-container {
+    max-width: 1180px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 24px;
+}
+
+.footer-contact-info {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    flex-wrap: wrap;
+}
+
+/* 回首頁按鈕 */
+.back-to-top-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background-color: transparent;
+    border: 1px solid #706a62;
+    padding: 10px 18px;
+    border-radius: 50px;
+    color: #e5e0d8 !important;
+    font-size: 1.05rem;
+    font-weight: 500;
+    margin-right: 10px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.back-to-top-btn .arrow {
+    font-size: 1.2rem;
+    line-height: 1;
+    transition: transform 0.2s ease;
+}
+
+.back-to-top-btn:hover {
+    background-color: #f5f2eb;
+    border-color: #f5f2eb;
+    color: #1a1a1a !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(245, 242, 235, 0.2);
+}
+
+.back-to-top-btn:hover .arrow {
+    transform: translateY(-2px);
+}
+
+/* 聯絡人姓名 */
+.footer-contact-info .contact-name {
+    color: #ffffff;
+    font-size: 1.45rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-right: 8px;
+}
+
+/* 膠囊按鈕式連結 */
+.contact-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #2a2826;
+    border: 1px solid #4a4540;
+    padding: 10px 20px;
+    border-radius: 50px;
+    color: #ffffff !important;
+    font-size: 1.15rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    transition: all 0.25s ease;
+}
+
+.contact-item .label {
+    color: #a8a29a;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+}
+
+.contact-item:hover {
+    background-color: #ffffff;
+    border-color: #ffffff;
+    color: #1a1a1a !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.18);
+}
+
+.contact-item:hover .label {
+    color: #666666;
+}
+
+.footer-bar-copy {
+    font-size: 1rem;
+    color: #9c958c;
+    letter-spacing: 0.5px;
+}
+
+/* ==========================================================================
+   響應式設計 (RWD 手機/平板適配)
+   ========================================================================== */
+@media (max-width: 900px) {
+    html {
+        scroll-snap-type: none; /* 手機螢幕解除吸附以保障閱讀流暢 */
+    }
+    
+    .snap-section {
+        height: auto;
+        min-height: 100vh;
+        padding: 60px 20px;
+    }
+
+    .hero-container {
+        flex-direction: column;
+        text-align: center;
+        gap: 30px;
+    }
+
+    .hero-image-box {
+        max-width: 260px;
+    }
+
+    .hero-image-box img {
+        height: 320px;
+    }
+
+    .layout-container {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+
+    .about-grid {
+        flex-direction: column;
+    }
+
+    .skills-grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+
+    .footer-bar-container {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+    }
+
+    .footer-contact-info {
+        justify-content: center;
+        flex-direction: column;
+        width: 100%;
+        gap: 12px;
+    }
+
+    .back-to-top-btn,
+    .contact-item {
+        width: 100%;
+        justify-content: center;
+        margin-right: 0;
+    }
+}
